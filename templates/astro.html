@@ -1,0 +1,67 @@
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+	
+	<body>
+		<div class = 'pane'>
+		<div class = 'header'>
+		<h1>{{categories.category}}</h1>
+	</div>
+		{% for i in items %}
+    <div class = 'nameAndPrice'>
+		<span class = 'name'><p><a href="{{url_for('Description', category_id = i.cat_id, item_id=i.item_id)}}" >{{i.item_name}}</a></p></span>
+		<span><p><a href="{{url_for('editItem', category_id = i.cat_id, item_id=i.item_id)}}" >Edit</a><span>
+		<span><a href="{{url_for('deleteItem', category_id = i.cat_id, item_id=i.item_id)}}" >Delete</a></p><span>
+	</span>
+	</div>
+		{% endfor %}
+	<br>
+	<div>
+		<a href = {{url_for('newItem', category_id=categories.cat_id) }}>Create New Item</a>
+		<span class = 'name'><p><a href="{{url_for('astroCats')}}" >Back to Astronomical Objects</a></p></span>
+	</div>
+			
+
+	</div>		
+	
+
+	<div class = 'bottompane'>
+		<div class = 'header'>
+		<h1>Description</h1>
+	</div>
+
+			
+	<span><div class = 'flash'>
+				  {% with messages = get_flashed_messages() %}
+		  {% if messages %}
+			  
+			<ul>
+			{% for message in messages %}
+				<li> <strong> {{ message }} </strong> </li>
+			{% endfor %}
+			</ul>
+			{% endif %}
+		{% endwith %}
+	</span></div>
+	
+
+		<span class = 'name'><p>Please select an item in the accompanying list of items to see further details</p></span>
+		
+
+		  
+
+	<div>
+		<span class = 'description'><p><a href="{{url_for('astroCats')}}" >Back to Astronomical Objects</a></p></span>
+	</div>
+	</div>
+
+		
+
+	</body>
+
+
+
+
+</html>

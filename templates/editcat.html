@@ -1,0 +1,22 @@
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+
+<h1> Edit Category </h1>
+
+<form action="{{ url_for('editCat', category_id = categories.cat_id)}}" method = 'post'>
+
+<dl>
+	<dt>Name:</dt>
+		<dd><input type ='text' size='30' name='category' value = '{{categories.category }}'></dd>		
+</dl>
+
+
+<input type='submit' value='Edit'>
+
+<a href = '{{url_for('astroCats')}}'> Cancel </a>
+</form>
+</body>
+</html>

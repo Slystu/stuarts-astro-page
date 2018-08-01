@@ -1,0 +1,70 @@
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+	
+	<body>
+	<div class="loginout">
+			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
+		</div>
+	<div class = 'pane'>
+		<div class = 'header'>
+		<h1>Astro Categories</h1>
+	</div>
+					
+	<span><div class = 'flash'>
+				  {% with messages = get_flashed_messages() %}
+		  {% if messages %}
+			  
+			<ul>
+			{% for message in messages %}
+				<li> <strong> {{ message }} </strong> </li>
+			{% endfor %}
+			</ul>
+			{% endif %}
+		{% endwith %}
+	</span></div>
+				  
+		{% for c in categories %}
+    <div class = 'nameAndPrice'>
+		<span class = 'description'><p><a href="{{url_for('astroMenu',category_id=c.cat_id)}}" >{{c.category}}</a></p></span>
+
+	</span>
+	</div>
+		<br>
+		<br>
+		{% endfor %}
+	</div>		
+	
+
+	<div class = 'bottompane'>
+		<div class = 'header'>
+		<h1>Latest Items</h1>
+	</div>
+
+		{% for i in items %}
+    <div class = 'latestList'>
+		<p>
+			<span class = 'latestList'><p><b>Item name: </b><a href="{{url_for('Description',category_id=i.cat_id, item_id = i.item_id)}}" >{{i.item_name}}</a></p></span>
+			<span class = 'description'><p><b>Category: </b><a href="{{url_for('astroMenu',category_id=i.cat_id)}}" >{{i.category.category}}</a></p></span>
+		</p>
+
+	</span>
+	</div>
+
+		{% endfor %}
+
+		
+
+</div>
+</div>
+</div>
+</div>
+
+	</body>
+
+
+
+
+</html>

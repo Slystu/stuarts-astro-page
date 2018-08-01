@@ -1,0 +1,76 @@
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+	
+	<body>
+	
+		<div class = 'pane'>
+		<div class = 'header'>
+		<h1>Categories</h1>
+	</div>
+
+		{% for c in categories %}
+    <div class = 'nameAndPrice'>
+		<span class = 'description'><p>{{c.category}}</p></span>
+		<span class = 'description'><p>{{c.cat_id}}</p></span>
+
+	</span>
+	</div>
+		{% endfor %}
+	<div>
+		<span class = 'name'><p><a href="{{url_for('astroCats')}}" >Back to Astronomical Objects</a></p></span>
+	</div>
+			
+
+	</div>		
+	
+	<div class = 'bottompane'>
+		<div class = 'header'>
+		<h1>Items</h1>
+	</div>
+			
+	<span><div class = 'flash'>
+				  {% with messages = get_flashed_messages() %}
+		  {% if messages %}
+			  
+			<ul>
+			{% for message in messages %}
+				<li> <strong> {{ message }} </strong> </li>
+			{% endfor %}
+			</ul>
+			{% endif %}
+		{% endwith %}
+	</span></div>
+	
+
+		{% for i in items %}
+		<span class = 'name'><p>{{i.item_name}}</p></span>
+		<span class = 'description'><p>{{i.description}}</p></span>
+		<span class = 'description'><p>{{i.date_added}}</p></span>
+		<span class = 'description'><p>{{i.cat_id}}</p></span>
+		<span class = 'description'><p>{{i.category.category}}</p></span>
+		<span><p><a href="{{url_for('editItem',category_id = i.cat_id, item_id=i.item_id)}}" >Edit</a></p><span>
+		<span><p><a href="{{url_for('deleteItem', category_id = i.cat_id, item_id=i.item_id)}}" >Delete</a></p><span>
+
+		{% endfor %}
+		
+		{% for c in categories %}
+	<a href = {{url_for('newItem', category_id=c.cat_id) }}>Create New Item</a>
+		{% endfor %}
+		  
+
+	<div>
+		<span class = 'description'><p><a href="{{url_for('astroCats')}}" >Back to Astronomical Objects</a></p></span>
+	</div>
+	</div>
+
+		
+
+	</body>
+
+
+
+
+</html>
