@@ -72,9 +72,7 @@ class Items(Base):
 			'user_id': self.user_id,
 			'user': self.user.name,
 		}
+if __name__ == "__main__":
+       engine = create_engine('postgresql://catalog:password@localhost/catalogapp')
+       Base.metadata.create_all(engine)
 
-
-engine = create_engine('sqlite:///catalogapp.db')
-
-
-Base.metadata.create_all(engine)

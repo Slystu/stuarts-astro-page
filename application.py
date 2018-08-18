@@ -4,7 +4,6 @@ app = Flask(__name__)
 import datetime
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Categories, Users, Items
 from flask import session as login_session
 import random
 import string
@@ -14,10 +13,13 @@ import httplib2
 import json
 from flask import make_response, flash, jsonify
 import requests
-
+import sys
+sys.path.append('//var/www/html/stuarts-astro-page')
+from database_setup import Base, Categories, Users, Items
+import psycopg2
 
 # Creating and binding the engine to a session
-engine = create_engine('sqlite:///catalogapp.db')
+engine = create_engine('postgresql://catalog:password@localhost/catalogapp')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -25,9 +27,8 @@ session = DBSession()
 
 # Reading the client secrets doc
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/html/stuarts-astro-page/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Astro App"
-
 
 # Functions to help add new users, check if a user exists
 # (based on their email addess) and to get the user ID for existing users
@@ -56,13 +57,12 @@ def getUserID(email):
 # Create anti-forgery state token
 @app.route('/login')
 def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
+    print "The current session state is %s" % state
     #return "The current session state is %s" % login_session['state']
-    return render_template('login.html', STATE=state)
+    #return render_template('login.html', STATE=state)
 
-	
 # Create Google login Gconnect function (from udacity course content)
 @app.route('/gconnect', methods=['GET', 'POST'])
 def gconnect():

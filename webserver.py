@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from ORMrestaurant import Base, Categories, Users, Items
 
-engine = create_engine('sqlite:///catalogapp.db')
+engine = create_engine('postgresql://catalog:password@localhost/catalogapp')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
